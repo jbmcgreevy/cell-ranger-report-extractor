@@ -40,6 +40,8 @@ class CellRangerReportExtractor:
         with open(file_path, "r", encoding="utf-8") as f:
             soup = BeautifulSoup(f, "html.parser")
 
+        print(f"Parsing: {file_path}")
+
         # Extract JSON blob from <script> tag
         script_tag = soup.find("script", string=re.compile("const data ="))
 
@@ -56,7 +58,6 @@ class CellRangerReportExtractor:
         }
 
         if script_tag:
-            print("found script")
             # Extract JSON safely
             json_string = CellRangerReportExtractor.extract_json(script_tag.string)
 
@@ -92,7 +93,7 @@ class CellRangerReportExtractor:
         
         return "Not Found"  # Return if key is not found
 
-# Process multiple HTML files (including subfolders)
+# Process multiple HTML files (including sub folders)
 data_list = []
 html_files = glob.glob("input-files/*.html", recursive=False)
 

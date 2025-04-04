@@ -1,6 +1,6 @@
 # cell-ranger-report-extractor
 
-A tool to extract Cell Ranger data from HTML files and add it to a new spreadsheet.
+A tool to extract basic quality-control data from 10x Cell Ranger HTML files and add it to a new spreadsheet.
 
 ## Features
 
@@ -22,6 +22,10 @@ A tool to extract Cell Ranger data from HTML files and add it to a new spreadshe
 
 1. Place your HTML files in the `input-files` directory.
 2. Run the script.
+```bash
+    # Run the script
+    python cellRangerReportExtractor.py
+```
 3. The script will generate `output.csv` and `output.xlsx` in the current directory.
 
 ## Dependencies
@@ -32,9 +36,3 @@ A tool to extract Cell Ranger data from HTML files and add it to a new spreadshe
 - json
 - re
 - os
-
-## Example
-
-```bash
-# Run the script
-python cellRangerReportExtractor.py
