@@ -24,7 +24,7 @@ A tool to extract basic quality-control data from 10x Cell Ranger HTML files and
 2. Run the script.
 ```bash
     # Run the script
-    python cellRangerReportExtractor.py
+    python cell-ranger-report-extractor.py
 ```
 3. The script will generate `output.csv` and `output.xlsx` in the current directory.
 

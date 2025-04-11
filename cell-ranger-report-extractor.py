@@ -6,6 +6,9 @@ import json
 import re
 import os
 
+with open('config.json', 'r') as config_file:
+    config_data = json.load(config_file)
+
 class CellRangerReportExtractor:
 
     def extract_json(script_content):
@@ -33,6 +36,8 @@ class CellRangerReportExtractor:
     def extract_data_from_html(file_path):
         # Sanitize file path
         file_path = os.path.abspath(file_path)
+        file_name = os.path.basename(file_path)
+
         if not file_path.startswith(os.path.abspath("input-files")):
             print(f"Invalid file path: {file_path}")
             return None
@@ -40,7 +45,7 @@ class CellRangerReportExtractor:
         with open(file_path, "r", encoding="utf-8") as f:
             soup = BeautifulSoup(f, "html.parser")
 
-        print(f"Parsing: {file_path}")
+        print(f"Parsing: {file_name}")
 
         # Extract JSON blob from <script> tag
         script_tag = soup.find("script", string=re.compile("const data ="))
@@ -110,7 +115,14 @@ output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
 
 df = pd.DataFrame(data_list)
-df.to_csv(os.path.join(output_dir, f"cell-ranger-stats-{current_date}.csv"), index=False)
-df.to_excel(os.path.join(output_dir, f"cell-ranger-stats-{current_date}.xlsx"), index=False)
 
-print("Data extraction complete. Saved as output.csv and output.xlsx.")
+print(config_data["createCsv"] == False)
+
+if (config_data["createCsv"].lower() == "true"):
+    print("Creating CSV file")
+    df.to_csv(os.path.join(output_dir, f"cell-ranger-stats-{current_date}.csv"), index=False)
+if (config_data["createExcel"].lower() == "true"):
+    print("Creating Excel file")
+    df.to_excel(os.path.join(output_dir, f"cell-ranger-stats-{current_date}.xlsx"), index=False)
+
+print("Data extraction complete.")
