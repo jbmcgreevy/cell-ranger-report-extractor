@@ -1,0 +1,6 @@
+{
+    "name": "Cell Ranger Report Extractor",
+    "version": "1.0.0",
+    "createCsv": "true",
+    "createExcel": "false"
+}
